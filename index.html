@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Динамические Select с Tooltip</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Blocks with Tooltips</title>
 <style>
   .container {
-    margin: 10px;
+    margin-top: 20px;
   }
   .select-block {
     margin-bottom: 10px;
@@ -15,7 +16,7 @@
     visibility: hidden;
     width: 120px;
     background-color: black;
-    color: #fff;
+    color: white;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -28,22 +29,64 @@
   .select-block:hover .tooltip {
     visibility: visible;
   }
-  .tooltip img {
-    width: 100px;
-    height: auto;
-  }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <button id="addSelect">+</button>
-  <form id="dynamicForm">
-    <!-- Динамически добавляемые select будут здесь -->
-  </form>
-  <button type="button" id="submitForm">Отправить</button>
-</div>
+<button id="addSelect">+</button>
+<div class="container"></div>
+<button id="submit">Отправить</button>
 
-<script src="script.js"></script>
+<script>
+  document.getElementById('addSelect').addEventListener('click', addSelectBlock);
+
+  function addSelectBlock() {
+    const container = document.querySelector('.container');
+    const selectBlock = document.createElement('div');
+    selectBlock.className = 'select-block';
+    selectBlock.innerHTML = `
+      <select onchange="updateTooltip(this)">
+        <option value="type1">Тип 1</option>
+        <option value="type2">Тип 2</option>
+        <option value="type3">Тип 3</option>
+      </select>
+      <span class="tooltip">Тип 1</span>
+      <button onclick="removeSelectBlock(this)">-</button>
+      <button onclick="moveUp(this)">↑</button>
+      <button onclick="moveDown(this)">↓</button>
+    `;
+    container.appendChild(selectBlock);
+  }
+
+  function removeSelectBlock(button) {
+    button.parentElement.remove();
+  }
+
+  function moveUp(button) {
+    const block = button.parentElement;
+    if (block.previousElementSibling) {
+      block.parentNode.insertBefore(block, block.previousElementSibling);
+    }
+  }
+
+  function moveDown(button) {
+    const block = button.parentElement;
+    if (block.nextElementSibling) {
+      block.parentNode.insertBefore(block.nextElementSibling, block);
+    }
+  }
+
+  function updateTooltip(select) {
+    const tooltip = select.nextElementSibling;
+    tooltip.textContent = select.options[select.selectedIndex].text;
+  }
+
+  document.getElementById('submit').addEventListener('click', () => {
+    const selects = document.querySelectorAll('.select-block > select');
+    const values = Array.from(selects).map(select => select.value);
+    console.log(values);
+  });
+</script>
+
 </body>
 </html>
