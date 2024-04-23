@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Динамические Select с Tooltip</title>
+<style>
+  .container {
+    margin: 10px;
+  }
+  .select-block {
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+  }
+  .select-block:hover .tooltip {
+    visibility: visible;
+  }
+  .tooltip img {
+    width: 100px;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <button id="addSelect">+</button>
+  <form id="dynamicForm">
+    <!-- Динамически добавляемые select будут здесь -->
+  </form>
+  <button type="button" id="submitForm">Отправить</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
