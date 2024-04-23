@@ -3,29 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Select Blocks with Tooltips</title>
+<title>Dynamic Select Blocks</title>
 <style>
   .container {
     margin: 10px;
   }
-  .select-block {
-    margin: 10px 0;
-    position: relative;
+  .block {
+    margin-bottom: 5px;
   }
   .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  .tooltip .tooltiptext {
     visibility: hidden;
+    width: 120px;
     background-color: black;
-    color: white;
+    color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px;
+    padding: 5px 0;
     position: absolute;
     z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -60px;
   }
-  .select-block:hover .tooltip {
+  .tooltip:hover .tooltiptext {
     visibility: visible;
   }
 </style>
@@ -34,68 +36,9 @@
 
 <div class="container">
   <button id="addSelect">+</button>
-  <div id="selectsContainer"></div>
-  <button onclick="submitSelections()">Отправить</button>
+  <button id="clearAll">Очистить все</button>
 </div>
 
-<script>
-const selectsContainer = document.getElementById('selectsContainer');
-
-document.getElementById('addSelect').addEventListener('click', function() {
-  const selectBlock = document.createElement('div');
-  selectBlock.className = 'select-block';
-  selectBlock.innerHTML = `
-    <select onchange="updateTooltip(this)">
-      <option value="type1">Тип 1</option>
-      <option value="type2">Тип 2</option>
-      <option value="type3">Тип 3</option>
-    </select>
-    <button onclick="removeSelect(this)">-</button>
-    <button onclick="moveUp(this)">↑</button>
-    <button onclick="moveDown(this)">↓</button>
-    <span class="tooltip">Выберите тип</span>
-  `;
-  selectsContainer.appendChild(selectBlock);
-});
-
-function removeSelect(button) {
-  button.parentElement.remove();
-}
-
-function moveUp(button) {
-  const block = button.parentElement;
-  if (block.previousElementSibling) {
-    block.parentNode.insertBefore(block, block.previousElementSibling);
-  }
-}
-
-function moveDown(button) {
-  const block = button.parentElement;
-  if (block.nextElementSibling) {
-    block.parentNode.insertBefore(block.nextElementSibling, block);
-  }
-}
-
-function updateTooltip(select) {
-  const tooltip = select.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling;
-  switch (select.value) {
-    case 'type1':
-      tooltip.textContent = 'Тип 1 выбран';
-      break;
-    case 'type2':
-      tooltip.textContent = 'Тип 2 выбран';
-      break;
-    case 'type3':
-      tooltip.textContent = 'Тип 3 выбран';
-      break;
-  }
-}
-
-function submitSelections() {
-  const selects = document.querySelectorAll('.select-block > select');
-  const values = Array.from(selects).map(select => select.value);
-  console.log(values);
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>
