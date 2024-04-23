@@ -6,20 +6,19 @@
 <title>Select Blocks with Tooltips</title>
 <style>
   .container {
-    margin-top: 20px;
+    margin: 10px;
   }
   .select-block {
-    margin-bottom: 10px;
+    margin: 10px 0;
     position: relative;
   }
   .tooltip {
     visibility: hidden;
-    width: 120px;
     background-color: black;
     color: white;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
+    padding: 5px;
     position: absolute;
     z-index: 1;
     bottom: 100%;
@@ -33,60 +32,70 @@
 </head>
 <body>
 
-<button id="addSelect">+</button>
-<div class="container"></div>
-<button id="submit">Отправить</button>
+<div class="container">
+  <button id="addSelect">+</button>
+  <div id="selectsContainer"></div>
+  <button onclick="submitSelections()">Отправить</button>
+</div>
 
 <script>
-  document.getElementById('addSelect').addEventListener('click', addSelectBlock);
+const selectsContainer = document.getElementById('selectsContainer');
 
-  function addSelectBlock() {
-    const container = document.querySelector('.container');
-    const selectBlock = document.createElement('div');
-    selectBlock.className = 'select-block';
-    selectBlock.innerHTML = `
-      <select onchange="updateTooltip(this)">
-        <option value="type1">Тип 1</option>
-        <option value="type2">Тип 2</option>
-        <option value="type3">Тип 3</option>
-      </select>
-      <span class="tooltip">Тип 1</span>
-      <button onclick="removeSelectBlock(this)">-</button>
-      <button onclick="moveUp(this)">↑</button>
-      <button onclick="moveDown(this)">↓</button>
-    `;
-    container.appendChild(selectBlock);
+document.getElementById('addSelect').addEventListener('click', function() {
+  const selectBlock = document.createElement('div');
+  selectBlock.className = 'select-block';
+  selectBlock.innerHTML = `
+    <select onchange="updateTooltip(this)">
+      <option value="type1">Тип 1</option>
+      <option value="type2">Тип 2</option>
+      <option value="type3">Тип 3</option>
+    </select>
+    <button onclick="removeSelect(this)">-</button>
+    <button onclick="moveUp(this)">↑</button>
+    <button onclick="moveDown(this)">↓</button>
+    <span class="tooltip">Выберите тип</span>
+  `;
+  selectsContainer.appendChild(selectBlock);
+});
+
+function removeSelect(button) {
+  button.parentElement.remove();
+}
+
+function moveUp(button) {
+  const block = button.parentElement;
+  if (block.previousElementSibling) {
+    block.parentNode.insertBefore(block, block.previousElementSibling);
   }
+}
 
-  function removeSelectBlock(button) {
-    button.parentElement.remove();
+function moveDown(button) {
+  const block = button.parentElement;
+  if (block.nextElementSibling) {
+    block.parentNode.insertBefore(block.nextElementSibling, block);
   }
+}
 
-  function moveUp(button) {
-    const block = button.parentElement;
-    if (block.previousElementSibling) {
-      block.parentNode.insertBefore(block, block.previousElementSibling);
-    }
+function updateTooltip(select) {
+  const tooltip = select.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling;
+  switch (select.value) {
+    case 'type1':
+      tooltip.textContent = 'Тип 1 выбран';
+      break;
+    case 'type2':
+      tooltip.textContent = 'Тип 2 выбран';
+      break;
+    case 'type3':
+      tooltip.textContent = 'Тип 3 выбран';
+      break;
   }
+}
 
-  function moveDown(button) {
-    const block = button.parentElement;
-    if (block.nextElementSibling) {
-      block.parentNode.insertBefore(block.nextElementSibling, block);
-    }
-  }
-
-  function updateTooltip(select) {
-    const tooltip = select.nextElementSibling;
-    tooltip.textContent = select.options[select.selectedIndex].text;
-  }
-
-  document.getElementById('submit').addEventListener('click', () => {
-    const selects = document.querySelectorAll('.select-block > select');
-    const values = Array.from(selects).map(select => select.value);
-    console.log(values);
-  });
+function submitSelections() {
+  const selects = document.querySelectorAll('.select-block > select');
+  const values = Array.from(selects).map(select => select.value);
+  console.log(values);
+}
 </script>
-
 </body>
 </html>
