@@ -1,3 +1,10 @@
+
+// текст            type1
+// текст + каринка  type2
+// текст + галерея  type3
+// текст + слайдер  type4
+// текст + квиз     type5
+
 document.addEventListener('DOMContentLoaded', function() {
   const container = document.querySelector('.container');
   const addSelectBtn = document.getElementById('addSelect');
@@ -18,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
     block.classList.add('block');
     block.innerHTML = `
       <select class="selectType">
-        <option value="type1" data-image-url="img/types/type1.jpg">Тип 1</option>
-        <option value="type2" data-image-url="img/types/type2.jpg">Тип 2</option>
-        <option value="type3" data-image-url="img/types/type3.jpg">Тип 3</option>
-        <option value="type4" data-image-url="img/types/type4.jpg">Тип 4</option>
-        <option value="type5" data-image-url="img/types/type5.jpg">Тип 5</option>
+        <option value="type1" data-image-url="img/types/type1.jpg">секция текст</option>
+        <option value="type2" data-image-url="img/types/type2.jpg">секция текст + каринка</option>
+        <option value="type3" data-image-url="img/types/type3.jpg">секция текст + галерея</option>
+        <option value="type4" data-image-url="img/types/type4.jpg">секция текст + слайдер</option>
+        <option value="type5" data-image-url="img/types/type5.jpg">секция текст + квиз</option>
       </select>
       <button class="removeSelect">-</button>
       <button class="moveUp">↑</button>
