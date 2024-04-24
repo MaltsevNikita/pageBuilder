@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     selectValues.forEach(selectedItem => {
       console.log(selectedItem);
     })
-    console.log(selectValues[2]);
+    // console.log(selectValues[2]);
     // count.value = selectValues[2];
 
   }
