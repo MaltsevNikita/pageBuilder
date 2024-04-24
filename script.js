@@ -2,6 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const container = document.querySelector('.container');
   const addSelectBtn = document.getElementById('addSelect');
   const clearAllBtn = document.getElementById('clearAll');
+  const countBtn = document.getElementById('count');
+  const total = document.getElementById('total')
+
+  countBtn.addEventListener('click', () => {
+    countTotal();
+    console.log('hello');
+  })
 
   addSelectBtn.addEventListener('click', addSelectBlock);
   clearAllBtn.addEventListener('click', clearAllBlocks);
@@ -11,9 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
     block.classList.add('block');
     block.innerHTML = `
       <select class="selectType">
-        <option value="type1" data-image-url="img/001.png">Тип 1</option>
-        <option value="type2" data-image-url="img/001.png">Тип 2</option>
-        <option value="type3" data-image-url="img/002.jpg">Тип 3</option>
+        <option value="type1" data-image-url="img/types/type1.jpg">Тип 1</option>
+        <option value="type2" data-image-url="img/types/type2.jpg">Тип 2</option>
+        <option value="type3" data-image-url="img/types/type3.jpg">Тип 3</option>
+        <option value="type4" data-image-url="img/types/type4.jpg">Тип 4</option>
+        <option value="type5" data-image-url="img/types/type5.jpg">Тип 5</option>
       </select>
       <button class="removeSelect">-</button>
       <button class="moveUp">↑</button>
@@ -54,6 +63,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     const imageUrl = selectedOption.getAttribute('data-image-url');
     imageElement.src = imageUrl;
+  }
+
+  function countTotal(){
+    const selectItems = document.querySelectorAll('select');
+    const selectValues = []; // Array to store the values
+
+    selectItems.forEach(select => {
+      selectValues.push(select.value); // Retrieve and store the value of each select element
+    });
+
+    selectValues.forEach(selectedItem => {
+      console.log(selectedItem);
+    })
+    console.log(selectValues[2]);
+    // count.value = selectValues[2];
+
   }
 
   function clearAllBlocks() {
