@@ -103,22 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let total = 0;
 
     selectValues.forEach(selectedItem => {
-      // alert(selectedItem)
-      // console.log(selectedItem);
-      // console.log(typeof(prices[selectedItem]) );
       total += prices[selectedItem];
       
 
     })
 
     console.log(total);
-    document.getElementById('total').innerHTML = total + ' руб.';
-    // console.log(selectedItem.selectedIndex);
-    // console.log(prices.);
-    
-    // console.log(selectValues);
-    // count.value = selectValues[2];
-
+    document.getElementById('total').innerHTML ='~' + total + ' руб.';
   }
 
   function clearAllBlocks() {
