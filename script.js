@@ -4,24 +4,29 @@
 // текст + галерея  type3
 // текст + слайдер  type4
 // текст + квиз     type5
+// счётчик          type6
+// тминиатюры       type7
+// карта            type8
 
 let prices = {
-  type1:100,
-  type2:300,
-  type3:500,
-  type4:800,
-  type5:1000,
-  type6:800,
-  type7:800,
-  type8:1000,
-  type9:1500,
+  type1:500,// текст 
+  type2:2000,// текст + каринка
+  type3:4000,// текст + галерея
+  type4:2000,// текст + слайдер
+  type5:2100,//список с маркерами
+  type6:5000,// текст + квиз 
+  type7:1000,// счётчик 
+  type8:2000,// миниатюры 
+  type9:3000,// карта 
+
+
 }
 document.addEventListener('DOMContentLoaded', function() {
   const container = document.querySelector('.container');
   const addSelectBtn = document.getElementById('addSelect');
   const clearAllBtn = document.getElementById('clearAll');
   const countBtn = document.getElementById('count');
-  // let total = document.getElementById('total')
+  // let totalBlock = document.getElementById('total')
 
   countBtn.addEventListener('click', () => {
     countTotal();
@@ -46,9 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
         <option value="type8" data-image-url="img/types/block_Video.jpg">видео</option>
         <option value="type9" data-image-url="img/types/block_Maps.jpg">карта</option>
       </select>
-      <button class="removeSelect">-</button>
-      <button class="moveUp">↑</button>
-      <button class="moveDown">↓</button>
+      <button class="removeSelect btn btn-danger">-</button>
+      <button class="moveUp btn btn-dark">↑</button>
+      <button class="moveDown btn btn-dark">↓</button>
       <span class="tooltip">?
         <span class="tooltiptext"><img src="" alt="Изображение" /></span>
       </span>
@@ -107,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
     console.log(total);
+    document.getElementById('total').innerHTML = total + ' руб.';
     // console.log(selectedItem.selectedIndex);
     // console.log(prices.);
     
